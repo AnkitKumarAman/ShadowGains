@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Dumbbell, Facebook, Instagram, MessageCircle } from "lucide-react";
+import { Dumbbell, Facebook, Instagram, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,17 +9,17 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center">
               <Dumbbell className="h-8 w-8 text-primary" />
-              <span className="ml-2 text-xl font-bold">FitPro</span>
+              <span className="ml-2 text-xl font-bold">ShadowGains</span>
             </div>
             <p className="text-gray-400">
               Your ultimate resource for fitness information, workout guidance, and nutritional advice.
             </p>
             <div className="flex space-x-4">
-              <a href="https://instagram.com/ankush_10010" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary">
+              <a href="https://instagram.com/___ankit__.22_____________" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="https://t.me/ankush_10010" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary">
-                <MessageCircle className="h-5 w-5" />
+              <a href="mailto:jeekumaramanankit24@gmail.com" className="text-gray-400 hover:text-primary">
+                <Mail className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -79,16 +79,16 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-2 text-gray-400">
-              <li>Phone: +91 99054XXXXX</li>
-              <li>Instagram: @ankush_10010</li>
-              <li>Telegram: @ankush_10010</li>
+              <li>Phone: +91 9334910129</li>
+              <li>Instagram: @___ankit__.22_____________</li>
+              <li>Email: jeekumaramanankit24@gmail.com</li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400">
-            &copy; {new Date().getFullYear()} FitPro. All rights reserved.
+            &copy; {new Date().getFullYear()} ShadowGains. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-primary">

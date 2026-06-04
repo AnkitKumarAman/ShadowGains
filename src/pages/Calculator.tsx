@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CalorieCalculator from "@/components/CalorieCalculator";
 import NutritionTracker from "@/components/NutritionTracker";
+import OneRepMaxCalculator from "@/components/OneRepMaxCalculator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Calculator = () => {
@@ -26,9 +27,10 @@ const Calculator = () => {
         {/* Calculator & Tracker Tabs */}
         <div className="section-container py-12">
           <Tabs defaultValue="calculator" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8">
+            <TabsList className="grid w-full grid-cols-3 max-w-xl mx-auto mb-8">
               <TabsTrigger value="calculator" className="text-lg py-3">Calorie Calculator</TabsTrigger>
               <TabsTrigger value="tracker" className="text-lg py-3">Nutrition Tracker</TabsTrigger>
+              <TabsTrigger value="strength" className="text-lg py-3">Strength Calculator</TabsTrigger>
             </TabsList>
             
             <TabsContent value="calculator">
@@ -74,6 +76,10 @@ const Calculator = () => {
             
             <TabsContent value="tracker">
               <NutritionTracker />
+            </TabsContent>
+
+            <TabsContent value="strength">
+              <OneRepMaxCalculator />
             </TabsContent>
           </Tabs>
         </div>

@@ -9,6 +9,7 @@ import { useWorkoutData } from "@/hooks/useWorkoutData";
 import { useAuth } from "@/contexts/AuthContext";
 import WorkoutForm from "@/components/workout/WorkoutForm";
 import WorkoutHeader from "@/components/workout/WorkoutHeader";
+import RestTimer from "@/components/workout/RestTimer";
 
 const WorkoutTracker = () => {
   const { toast } = useToast();
@@ -119,6 +120,7 @@ const WorkoutTracker = () => {
         </div>
       </main>
       
+      <RestTimer />
       <Footer />
     </div>
   );

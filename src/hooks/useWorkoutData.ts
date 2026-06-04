@@ -10,6 +10,8 @@ import {
   deleteWorkoutFromSupabase,
   migrateLocalToSupabase
 } from '@/services/workoutService';
+import confetti from 'canvas-confetti';
+import { detectNewPRs } from '@/utils/prDetector';
 
 export { type Workout } from '@/types/workout';
 
@@ -68,6 +70,32 @@ export const useWorkoutData = () => {
     setLoading(false);
   };
 
+  const celebratePRs = (prs: any[]) => {
+    if (prs.length === 0) return;
+    
+    confetti({
+      particleCount: 120,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+    
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        spread: 100,
+        origin: { y: 0.7 }
+      });
+    }, 250);
+
+    prs.forEach((pr) => {
+      toast({
+        title: "🎉 New Personal Record!",
+        description: `${pr.exerciseName}: ${pr.newMax} kg (Previous best: ${pr.previousMax} kg)`,
+        className: "bg-slate-950 border-violet-500 text-white shadow-[0_0_20px_rgba(124,58,237,0.4)]",
+      });
+    });
+  };
+
   // Save a workout to Supabase for logged-in users, or to localStorage otherwise
   const saveWorkout = async (workout: Workout) => {
     const workoutToSave = {
@@ -75,6 +103,8 @@ export const useWorkoutData = () => {
       id: workout.id || Date.now().toString(),
       savedAt: new Date().toISOString(),
     };
+
+    const newPRs = detectNewPRs(workoutToSave, workouts);
 
     if (isAuthenticated && user) {
       try {
@@ -88,6 +118,7 @@ export const useWorkoutData = () => {
         setWorkouts(updatedWorkouts);
         updateLocalStorage(updatedWorkouts);
         
+        celebratePRs(newPRs);
         return { success: true, workout: workoutToSave };
       } catch (error: any) {
         console.error('Error saving workout to Supabase:', error);
@@ -108,6 +139,7 @@ export const useWorkoutData = () => {
         setWorkouts(updatedWorkouts);
         updateLocalStorage(updatedWorkouts);
         
+        celebratePRs(newPRs);
         return { success: true, workout: workoutToSave };
       } catch (error) {
         console.error("Error saving workout to localStorage:", error);

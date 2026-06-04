@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { exercises } from "@/data/exercises";
 import ExerciseCard from "@/components/ExerciseCard";
@@ -62,16 +61,16 @@ const Exercises = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-black text-white">
       <Navbar />
       
       <main className="flex-grow">
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary to-blue-600 text-white">
-          <div className="section-container py-16 md:py-24">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Exercise Library</h1>
-              <p className="text-white/90 text-lg">
+        <div className="bg-gradient-to-r from-violet-900 to-indigo-900 border-b border-violet-850">
+          <div className="section-container py-16 md:py-24 text-center">
+            <div className="max-w-3xl mx-auto">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">Exercise Library</h1>
+              <p className="text-violet-200 text-lg">
                 Discover detailed guides for all major exercises to optimize your workouts and achieve your fitness goals.
               </p>
             </div>
@@ -79,15 +78,15 @@ const Exercises = () => {
         </div>
         
         {/* Search and Filters */}
-        <div className="bg-white shadow-md">
+        <div className="bg-slate-950 border-b border-violet-900/20 shadow-md">
           <div className="section-container py-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="relative flex-grow">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 h-5 w-5" />
                 <Input
                   type="text"
                   placeholder="Search exercises..."
-                  className="pl-10"
+                  className="pl-10 bg-slate-900 border-slate-800 text-white placeholder:text-slate-500 focus-visible:ring-violet-500"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -96,19 +95,20 @@ const Exercises = () => {
               <div className="flex gap-2">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="flex items-center">
-                      <Filter className="mr-2 h-4 w-4" />
+                    <Button variant="outline" className="flex items-center border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:text-white text-slate-300">
+                      <Filter className="mr-2 h-4 w-4 text-violet-400" />
                       Categories
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>Exercise Categories</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
+                  <DropdownMenuContent className="w-56 bg-slate-950 border-slate-800 text-white">
+                    <DropdownMenuLabel className="text-slate-400">Exercise Categories</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-slate-800" />
                     {categories.map((category) => (
                       <DropdownMenuCheckboxItem
                         key={category}
                         checked={selectedCategories.includes(category)}
                         onCheckedChange={() => toggleCategory(category)}
+                        className="hover:bg-violet-900/30 focus:bg-violet-900/30 text-white"
                       >
                         {category}
                       </DropdownMenuCheckboxItem>
@@ -118,19 +118,20 @@ const Exercises = () => {
                 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="flex items-center">
-                      <Dumbbell className="mr-2 h-4 w-4" />
+                    <Button variant="outline" className="flex items-center border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:text-white text-slate-300">
+                      <Dumbbell className="mr-2 h-4 w-4 text-violet-400" />
                       Muscles
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>Target Muscles</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
+                  <DropdownMenuContent className="w-56 bg-slate-950 border-slate-800 text-white">
+                    <DropdownMenuLabel className="text-slate-400">Target Muscles</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-slate-800" />
                     {muscles.map((muscle) => (
                       <DropdownMenuCheckboxItem
                         key={muscle}
                         checked={selectedMuscles.includes(muscle)}
                         onCheckedChange={() => toggleMuscle(muscle)}
+                        className="hover:bg-violet-900/30 focus:bg-violet-900/30 text-white"
                       >
                         {muscle}
                       </DropdownMenuCheckboxItem>
@@ -142,16 +143,16 @@ const Exercises = () => {
             
             {/* Active filters */}
             {(selectedCategories.length > 0 || selectedMuscles.length > 0) && (
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap gap-2 items-center">
                 {selectedCategories.map((category) => (
                   <div 
                     key={category} 
-                    className="flex items-center bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
+                    className="flex items-center bg-violet-950/40 border border-violet-900/40 text-violet-300 px-3 py-1 rounded-full text-xs font-semibold"
                   >
                     {category}
                     <button 
                       onClick={() => toggleCategory(category)}
-                      className="ml-2 focus:outline-none"
+                      className="ml-2 hover:text-white focus:outline-none"
                     >
                       ×
                     </button>
@@ -161,12 +162,12 @@ const Exercises = () => {
                 {selectedMuscles.map((muscle) => (
                   <div 
                     key={muscle} 
-                    className="flex items-center bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
+                    className="flex items-center bg-blue-950/40 border border-blue-900/40 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold"
                   >
                     {muscle}
                     <button 
                       onClick={() => toggleMuscle(muscle)}
-                      className="ml-2 focus:outline-none"
+                      className="ml-2 hover:text-white focus:outline-none"
                     >
                       ×
                     </button>
@@ -178,7 +179,7 @@ const Exercises = () => {
                     setSelectedCategories([]);
                     setSelectedMuscles([]);
                   }}
-                  className="text-sm text-gray-600 hover:text-primary"
+                  className="text-xs text-slate-400 hover:text-violet-400 font-semibold transition-colors ml-1"
                 >
                   Clear all filters
                 </button>
@@ -188,10 +189,10 @@ const Exercises = () => {
         </div>
         
         {/* Exercises Grid */}
-        <div className="bg-gray-50">
+        <div className="bg-black py-12">
           <div className="section-container">
             {filteredExercises.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
                 {filteredExercises.map((exercise) => (
                   <ExerciseCard
                     key={exercise.id}
@@ -201,9 +202,9 @@ const Exercises = () => {
               </div>
             ) : (
               <div className="text-center py-16">
-                <Dumbbell className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-2xl font-semibold mb-2">No exercises found</h3>
-                <p className="text-gray-600 mb-4">
+                <Dumbbell className="h-16 w-16 text-slate-700 mx-auto mb-4 animate-bounce" />
+                <h3 className="text-2xl font-bold mb-2 text-white">No exercises found</h3>
+                <p className="text-slate-400 mb-6 max-w-sm mx-auto text-sm">
                   Try adjusting your search terms or filters to find what you're looking for.
                 </p>
                 <Button
@@ -212,6 +213,7 @@ const Exercises = () => {
                     setSelectedCategories([]);
                     setSelectedMuscles([]);
                   }}
+                  className="bg-violet-600 hover:bg-violet-500 text-white font-medium"
                 >
                   Reset All Filters
                 </Button>

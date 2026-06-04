@@ -16,6 +16,7 @@ const Navbar = () => {
     { label: 'Home', path: '/' },
     { label: 'Workout Tracker', path: '/workout-tracker' },
     { label: 'Progress', path: '/progress' },
+    { label: 'Exercises', path: '/exercises' },
     { label: 'Nutrition', path: '/calculator' },
   ];
 

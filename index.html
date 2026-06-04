@@ -3,18 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>workout-essentials-guide</title>
+    <title>ShadowGains - Workout Tracker</title>
     <meta name="description" content="Your Ultimate Fitness Guide" />
-    <meta name="author" content="FitPro" />
+    <meta name="author" content="Ankit Kumar Aman" />
 
-    <meta property="og:title" content="FitPro - Your Ultimate Fitness Guide" />
+    <meta property="og:title" content="ShadowGains - Workout Tracker" />
     <meta property="og:description" content="Your ultimate resource for fitness information, workout guidance, and nutritional advice." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/opengraph-image.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@ankush_10010" />
-    <meta name="twitter:image" content="/opengraph-image.png" />
+    <meta name="twitter:site" content="@___ankit__.22_____________" />
+    <meta name="theme-color" content="#7c3aed" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/assets/logo.svg" />
   </head>
 
   <body>
@@ -22,5 +24,14 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker registered successfully:', reg.scope))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        });
+      }
+    </script>
   </body>
 </html>

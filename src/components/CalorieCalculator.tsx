@@ -54,6 +54,7 @@ const CalorieCalculator = () => {
     weightLoss: number;
     weightGain: number;
   } | null>(null);
+  const [activeTarget, setActiveTarget] = useState<"maintenance" | "weightLoss" | "weightGain">("maintenance");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -229,39 +230,111 @@ const CalorieCalculator = () => {
           </Form>
           
           {results && (
-            <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-              <h3 className="text-xl font-semibold mb-4 text-center">Your Results</h3>
+            <div className="mt-8 p-6 bg-slate-950/20 border border-slate-900 rounded-lg">
+              <h3 className="text-xl font-semibold mb-4 text-center text-white">Your Results</h3>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded-lg shadow text-center">
-                  <p className="text-sm text-gray-500">Your BMR</p>
-                  <p className="text-2xl font-bold text-primary">
-                    {results.bmr} <span className="text-sm font-normal">calories</span>
+                <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+                  <p className="text-sm text-slate-400">Your BMR</p>
+                  <p className="text-2xl font-bold text-violet-400">
+                    {results.bmr} <span className="text-sm font-normal">kcal</span>
                   </p>
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow text-center">
-                  <p className="text-sm text-gray-500">Maintenance</p>
-                  <p className="text-2xl font-bold text-blue-500">
-                    {results.maintenance} <span className="text-sm font-normal">calories</span>
+                <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+                  <p className="text-sm text-slate-400">Maintenance</p>
+                  <p className="text-2xl font-bold text-blue-400">
+                    {results.maintenance} <span className="text-sm font-normal">kcal</span>
                   </p>
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow text-center">
-                  <p className="text-sm text-gray-500">Weight Loss</p>
-                  <p className="text-2xl font-bold text-secondary">
-                    {results.weightLoss} <span className="text-sm font-normal">calories</span>
+                <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+                  <p className="text-sm text-slate-400">Weight Loss</p>
+                  <p className="text-2xl font-bold text-rose-400">
+                    {results.weightLoss} <span className="text-sm font-normal">kcal</span>
                   </p>
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow text-center">
-                  <p className="text-sm text-gray-500">Weight Gain</p>
-                  <p className="text-2xl font-bold text-accent">
-                    {results.weightGain} <span className="text-sm font-normal">calories</span>
+                <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+                  <p className="text-sm text-slate-400">Weight Gain</p>
+                  <p className="text-2xl font-bold text-amber-500">
+                    {results.weightGain} <span className="text-sm font-normal">kcal</span>
                   </p>
                 </div>
               </div>
-              <div className="mt-4 text-sm text-gray-500">
-                <p className="mb-1"><strong>BMR:</strong> Basal Metabolic Rate - calories your body needs at complete rest</p>
-                <p className="mb-1"><strong>Maintenance:</strong> Calories to maintain your current weight</p>
-                <p className="mb-1"><strong>Weight Loss:</strong> Suggested calories for safe weight loss (0.5kg/week)</p>
-                <p><strong>Weight Gain:</strong> Suggested calories for muscle gain (0.5kg/week)</p>
+
+              {/* Macronutrient Distribution */}
+              <div className="mt-6 border-t border-slate-900 pt-6">
+                <h4 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-violet-500 animate-pulse" />
+                  Estimated Macronutrient Splits
+                </h4>
+
+                {/* Tab selector for targets */}
+                <div className="flex gap-2 mb-4 bg-slate-900/50 p-1 rounded-lg max-w-sm border border-slate-800">
+                  {(["maintenance", "weightLoss", "weightGain"] as const).map((t) => (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setActiveTarget(t)}
+                      className={`flex-1 text-xs py-1.5 px-2 rounded-md font-semibold transition-all ${
+                        activeTarget === t
+                          ? "bg-violet-600 text-white shadow"
+                          : "text-slate-400 hover:text-slate-200"
+                      }`}
+                    >
+                      {t === "maintenance" ? "Maintenance" : t === "weightLoss" ? "Loss" : "Gain"}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Macro breakdown */}
+                {(() => {
+                  const calVal = results[activeTarget];
+                  const protein = Math.round((calVal * 0.30) / 4);
+                  const carbs = Math.round((calVal * 0.40) / 4);
+                  const fat = Math.round((calVal * 0.30) / 9);
+
+                  return (
+                    <div className="space-y-4 animate-in fade-in duration-300">
+                      {/* Protein */}
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-300 font-medium">Protein (30%)</span>
+                          <span className="text-violet-400 font-bold">{protein}g <span className="text-[10px] text-slate-500 font-normal">({protein * 4} kcal)</span></span>
+                        </div>
+                        <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden">
+                          <div className="h-full bg-violet-600 rounded-full" style={{ width: "30%" }} />
+                        </div>
+                      </div>
+
+                      {/* Carbs */}
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-300 font-medium">Carbohydrates (40%)</span>
+                          <span className="text-blue-400 font-bold">{carbs}g <span className="text-[10px] text-slate-500 font-normal">({carbs * 4} kcal)</span></span>
+                        </div>
+                        <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden">
+                          <div className="h-full bg-blue-500 rounded-full" style={{ width: "40%" }} />
+                        </div>
+                      </div>
+
+                      {/* Fat */}
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-300 font-medium">Fat (30%)</span>
+                          <span className="text-amber-500 font-bold">{fat}g <span className="text-[10px] text-slate-500 font-normal">({fat * 9} kcal)</span></span>
+                        </div>
+                        <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden">
+                          <div className="h-full bg-amber-500 rounded-full" style={{ width: "30%" }} />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              <div className="mt-6 text-xs text-slate-400 border-t border-slate-900 pt-4 space-y-1 select-none">
+                <p><strong>BMR (Basal Metabolic Rate):</strong> Minimum calories needed to survive at rest.</p>
+                <p><strong>Maintenance:</strong> Calories needed to keep your current body weight.</p>
+                <p><strong>Weight Loss:</strong> Safe calorie deficit (~500 kcal reduction) for safe fat loss.</p>
+                <p><strong>Weight Gain:</strong> Clean calorie surplus (~500 kcal excess) combined with heavy lifting for muscle building.</p>
               </div>
             </div>
           )}

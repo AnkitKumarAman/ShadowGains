@@ -55,6 +55,40 @@ const WorkoutHistory = ({
     }
   };
 
+  const exportWorkoutsAsCsv = () => {
+    try {
+      const headers = ["Date", "Exercise Name", "Set", "Weight (kg)", "Reps"];
+      const rows: string[][] = [headers];
+
+      workouts.forEach((workout) => {
+        const dateStr = workout.date;
+        workout.exercises.forEach((exercise) => {
+          exercise.sets.forEach((set, setIndex) => {
+            rows.push([
+              dateStr,
+              `"${exercise.name.replace(/"/g, '""')}"`,
+              (setIndex + 1).toString(),
+              set.weight,
+              set.reps
+            ]);
+          });
+        });
+      });
+
+      const csvContent = "data:text/csv;charset=utf-8," 
+        + rows.map(e => e.join(",")).join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const exportFileDefaultName = `workout-history-${new Date().toISOString().split('T')[0]}.csv`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', encodedUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+    } catch (error) {
+      console.error("Error exporting CSV:", error);
+    }
+  };
+
   if (workouts.length === 0) {
     return (
       <Card className="border-2 border-muted shadow-lg">
@@ -79,15 +113,24 @@ const WorkoutHistory = ({
   return (
     <div className={cn("space-y-4", className)}>
       {workouts.length > 0 && (
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end gap-2 mb-4">
           <Button 
             variant="outline" 
             size="sm" 
             onClick={exportWorkoutsAsJson}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 border-violet-900/30 hover:bg-violet-950/20 text-slate-300"
           >
             <Download className="h-4 w-4" />
-            Export Data
+            Export JSON
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={exportWorkoutsAsCsv}
+            className="flex items-center gap-1 border-violet-900/30 hover:bg-violet-950/20 text-slate-300"
+          >
+            <Download className="h-4 w-4 text-violet-400" />
+            Export CSV
           </Button>
         </div>
       )}

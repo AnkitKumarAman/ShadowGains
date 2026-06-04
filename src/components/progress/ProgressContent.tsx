@@ -9,6 +9,7 @@ import ExerciseProgressCharts from "@/components/progress/exercise/ExerciseProgr
 import NoWorkoutData from "@/components/progress/NoWorkoutData";
 import { useProgressMetrics } from "@/hooks/useProgressMetrics";
 import { BodyMetric } from "@/types/workout";
+import WorkoutHeatmap from "@/components/progress/WorkoutHeatmap";
 
 interface ProgressContentProps {
   workouts: any[];
@@ -69,10 +70,13 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
           {workouts.length === 0 ? (
             <NoWorkoutData />
           ) : (
-            <WorkoutFrequencyChart 
-              workoutFrequencyData={workoutFrequencyData}
-              formatDate={formatDate}
-            />
+            <>
+              <WorkoutHeatmap workouts={workouts} />
+              <WorkoutFrequencyChart 
+                workoutFrequencyData={workoutFrequencyData}
+                formatDate={formatDate}
+              />
+            </>
           )}
         </TabsContent>
         

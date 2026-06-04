@@ -41,6 +41,6 @@ This project is built with modern web technologies:
 
 ## Contact
 
-- Instagram: @ankush_10010
-- Telegram: @ankush_10010
+- Instagram: @___ankit__.22_____________
+- Email: jeekumaramanankit24@gmail.com
 
