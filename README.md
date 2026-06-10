@@ -40,7 +40,6 @@ This project is built with modern web technologies:
 - Tailwind CSS
 
 ## Contact
-
 - Instagram: @__ankit__.22_____________
 - Email: jeekumaramanankit24@gmail.com
 
