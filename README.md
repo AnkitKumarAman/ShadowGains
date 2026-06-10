@@ -1,5 +1,5 @@
-# Workout Essentials Guide
-**[Live Demo: https://shadow-gains-tasp/](https://shadow-gains-tasp.vercel.app/)**
+## [Workout Essentials Guide](https://shadow-gains-tasp.vercel.app/)
+
 A comprehensive fitness application that helps you track your workouts, calculate calories, and achieve your fitness goals.
 ## Features
 - Workout tracking and progress monitoring
@@ -28,5 +28,5 @@ This project is built with modern web technologies:
 - shadcn-ui
 - Tailwind CSS
 ## Contact
-- Instagram: @___ankit__.22_____________
+- Instagram: [@___ankit__.22_____________](https://www.instagram.com/___ankit__.22_____________)
 - Email: jeekumaramanankit24@gmail.com
